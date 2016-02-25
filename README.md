@@ -18,7 +18,7 @@ If you are not familiar with linked lists, we'll start with a brief introduction
 
 A data structure is "linked" if it is made up of objects, often called "nodes", that contain references to other nodes.  In a linked *list*, each node contains a reference to the next node in the list.  Other linked structures include trees and graphs, in which nodes can contain references to more than one other node.
 
-A linked list is use to store a sequence of elements, so each node contains a reference to an element, or sometimes to a collection of elements.  The element part of the node is sometimes called "cargo", so you can think of nodes as rail cars, where each car contains cargo and the cars are connected together.
+A linked list is used to store a sequence of elements, so each node contains a reference to an element, or sometimes to a collection of elements.  The element part of the node is sometimes called "cargo", so you can think of nodes as rail cars, where each car contains cargo and the cars are connected together.
 
 Let's see what this looks like in code.  Here's a class definition for a simple Node:
 
@@ -32,17 +32,17 @@ public class ListNode {
 		this.cargo = null;
 		this.next = null;
 	}
-	
+
 	public ListNode(Object cargo) {
 		this.cargo = cargo;
 		this.next = null;
 	}
-	
+
 	public ListNode(Object cargo, ListNode next) {
 		this.cargo = cargo;
 		this.next = next;
 	}
-	
+
 	public String toString() {
 		return "ListNode(" + cargo.toString() + ")";
 	}
@@ -93,17 +93,17 @@ In the subdirectory `javacs-lab03/src/com/flatironschool/javacs` you'll find the
     *  `MyLinkedListTest.java` contains JUnit tests for `MyLinkedList`.
 
     In `javacs-lab03`, you'll find the Ant build file `build.xml`.  If you are in this directory, you should be able to run `ant MyArrayList` to run `MyArrayList.java`, which contains a few simple tests.  Or you can run `ant test` to run the JUnit test.
-    
+
     When you run the tests, xxx out of 19 should fail.  If you examine the source code, you'll find three `TODO` comments indicating which methods you will fill in.
 
-*   Before you start filling in the missing methods, let's walk through some of the code.  Here are the instance variables and the constructor for `MyLinkedList`: 
+*   Before you start filling in the missing methods, let's walk through some of the code.  Here are the instance variables and the constructor for `MyLinkedList`:
 
 ```java
 public class MyLinkedList<E> implements List<E> {
 
 	private int size;            // keeps track of the number of elements
 	private Node head;           // reference to the first node
-	
+
 	public MyLinkedList() {
 		head = null;
 		size = 0;
@@ -119,13 +119,13 @@ If we store `size` explicitly, we have to update it each time we add or remove a
 
 The constructor sets `head` to `null`, which indicates an empty list, and sets `size` to 0.
 
-This class uses the type parameter `E` for the type of the elements.  This type parameter appears in the definition of Node, which is nested inside `MyLinkedList`:
+This class uses the type parameter `E` for the type of the elements.  This type parameter appears in the definition of `Node`, which is nested inside `MyLinkedList`:
 
 ```java
 	private class Node {
 		public E cargo;
 		public Node next;
-		
+
 		public Node(E cargo, Node next) {
 			this.cargo = cargo;
 			this.next = next;
@@ -160,12 +160,12 @@ This example demonstrates two patterns you'll need for your solutions:
 
 1.  For many methods, we have to handle the first element of the list as a special case.  In this example, if we are adding the first element of a list, we have to modify `head`.  Otherwise, we traverse the list, find the end, and add the new node.
 
-2.  This method shows how to use a `for` loop to traverse the Nodes in a list.  In your solutions, you will probably write several variations on this loop.  Notice that we have to declare `node` before the loop so we can access it after the loop.
+2.  This method shows how to use a `for` loop to traverse the `Node`s in a list.  In your solutions, you will probably write several variations on this loop.  Notice that we have to declare `node` before the loop so we can access it after the loop.
 
 
 ## Instructions
 
-Now it's your turn: 
+Now it's your turn:
 
 *    Fill in the body of `indexOf`.  As usual, you should [read the documentation](https://docs.oracle.com/javase/7/docs/api/java/util/List.html#indexOf(java.lang.Object)) so you know what it's supposed to do.  In particular, notice how it is supposed to handle `null`.
 
@@ -198,9 +198,8 @@ Here is my implementation of the `clear` method:
 	}
 ```
 
-When we set `head` to `null`, we remove a reference to the first Node.  If there are no other references to that Node (and there shouldn't be), it will get garbage collected.  At that point, the reference to the second Node is removed, so it gets garbage collected, too.  This process continues until all Nodes are collected.
+When we set `head` to `null`, we remove a reference to the first `Node`.  If there are no other references to that `Node` (and there shouldn't be), it will get garbage collected.  At that point, the reference to the second `Node` is removed, so it gets garbage collected, too.  This process continues until all `Nodes` are collected.
 
 So how should we classify `clear`?  The method itself contains two constant time operations, so it sure looks like it's constant time.  But when you invoke it, you make the garbage collector do work that's proportional to the number of elements.  So there's an argument that we should consider it linear!
 
 This is a subtle example of what is sometimes called a "performance bug"; that is, a program that is correct in the sense that it does the right thing, but it doesn't belong to the order of growth we expected.  In languages like Java that do a lot of work, like garbage collection, behind the scenes, this kind of error can be hard to find.
-
