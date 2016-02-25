@@ -70,15 +70,15 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	@Override
-	public boolean add(E e) {
+	public boolean add(E element) {
 		if (head == null) {
-			head = new Node(e);
+			head = new Node(element);
 		} else {
 			Node node = head;
 			for ( ; node.next != null; node = node.next) {
 				// find the last node
 			}
-			node.next = new Node(e);
+			node.next = new Node(element);
 		}
 		size++;
 		return true;
@@ -97,16 +97,16 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends E> c) {
+	public boolean addAll(Collection<? extends E> collection) {
 		boolean flag = true;
-		for (E e: c) {
-			flag &= add(e);
+		for (E element: collection) {
+			flag &= add(element);
 		}
 		return flag;
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends E> c) {
+	public boolean addAll(int index, Collection<? extends E> collection) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -117,14 +117,14 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	@Override
-	public boolean contains(Object o) {
-		return indexOf(o) != -1;
+	public boolean contains(Object obj) {
+		return indexOf(obj) != -1;
 	}
 
 	@Override
-	public boolean containsAll(Collection<?> c) {
-		for (Object e: c) {
-			if (!contains(e)) {
+	public boolean containsAll(Collection<?> collection) {
+		for (Object obj: collection) {
+			if (!contains(obj)) {
 				return false;
 			}
 		}
@@ -214,8 +214,8 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	@Override
-	public boolean remove(Object o) {
-		int index = indexOf(o);
+	public boolean remove(Object obj) {
+		int index = indexOf(obj);
 		if (index == -1) {
 			return false;
 		}
@@ -237,16 +237,16 @@ public class MyLinkedList<E> implements List<E> {
 	}
 
 	@Override
-	public boolean removeAll(Collection<?> c) {
+	public boolean removeAll(Collection<?> collection) {
 		boolean flag = true;
-		for (Object o: c) {
-			flag &= remove(o);
+		for (Object obj: collection) {
+			flag &= remove(obj);
 		}
 		return flag;
 	}
 
 	@Override
-	public boolean retainAll(Collection<?> c) {
+	public boolean retainAll(Collection<?> collection) {
 		throw new UnsupportedOperationException();
 	}
 
