@@ -225,7 +225,7 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public E remove(int index) {
-		E e = get(index);
+		E element = get(index);
 		if (index == 0) {
 			head = head.next;
 		} else {
@@ -233,7 +233,7 @@ public class MyLinkedList<E> implements List<E> {
 			node.next = node.next.next;
 		}
 		size--;
-		return e;
+		return element;
 	}
 
 	@Override
