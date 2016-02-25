@@ -1,6 +1,8 @@
 tags:
-  - a tag
+  - List interface
+  - Linked list data structure
+  - Garbage collection
 languages:
-  - a language
+  - Java
 resources: 
   - 0
