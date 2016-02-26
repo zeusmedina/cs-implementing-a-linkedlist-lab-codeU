@@ -11,7 +11,7 @@
 
 For this lab we provide a partial implementation of the List interface that uses a linked list to store the elements.  We left three of the methods incomplete; your job is to fill them in.  We provide JUnit tests you can use to check your work.
 
-If you are not familiar with linked lists, we'll start with a brief introduction.
+If you are not familiar with a linked list, you might want to read [the Wikipedia page about it](https://en.wikipedia.org/wiki/Linked_list), but we'll also start with a brief introduction.
 
 
 ## Linked data structures
@@ -92,11 +92,14 @@ In the subdirectory `javacs-lab03/src/com/flatironschool/javacs` you'll find the
 
     *  `MyLinkedListTest.java` contains JUnit tests for `MyLinkedList`.
 
-    In `javacs-lab03`, you'll find the Ant build file `build.xml`.  If you are in this directory, you should be able to run `ant MyArrayList` to run `MyArrayList.java`, which contains a few simple tests.  Or you can run `ant test` to run the JUnit test.
+In `javacs-lab03`, you'll find the Ant build file `build.xml`.  If you are in this directory, you should be able to run `ant MyArrayList` to run `MyArrayList.java`, which contains a few simple tests.  Or you can run `ant test` to run the JUnit test.
 
-    When you run the tests, xxx out of 19 should fail.  If you examine the source code, you'll find three `TODO` comments indicating which methods you will fill in.
+When you run the tests, several of them should fail.  If you examine the source code, you'll find three `TODO` comments indicating which methods you will fill in.
 
-*   Before you start filling in the missing methods, let's walk through some of the code.  Here are the instance variables and the constructor for `MyLinkedList`:
+
+## `MyLinkedList code`
+
+Before you start filling in the missing methods, let's walk through some of the code.  Here are the instance variables and the constructor for `MyLinkedList`:
 
 ```java
 public class MyLinkedList<E> implements List<E> {
@@ -111,15 +114,19 @@ public class MyLinkedList<E> implements List<E> {
 }
 ```
 
-As the comments indicate, `size` keeps track of how many elements are in `MyLinkedList`, and `head` is a reference to the first Node in the list or `null` if the list is empty.
+As the comments indicate, `size` keeps track of how many elements are in `MyLinkedList`; `head` is a reference to the first Node in the list, or `null` if the list is empty.
 
-Storing the number of elements is not necessary, and in general it is risky to keep redundant information, because if it's not updated correctly, it creates opportunities for error.  But if we store `size` explicitly, we can implement the `size` method in constant time; otherwise, we would have to travese the list and count the elements, which requires linear time.  
+Storing the number of elements is not necessary, and in general it is risky to keep redundant information, because if it's not updated correctly, it creates opportunities for error.  It also takes a little bit of extra space.
 
-If we store `size` explicitly, we have to update it each time we add or remove an element, so that slows down those methods a little, but it doesn't change their order of growth, so it's probably worth it.
+But if we store `size` explicitly, we can implement the `size` method in constant time; otherwise, we would have to traverse the list and count the elements, which requires linear time.  
+
+Because we store `size` explicitly, we have to update it each time we add or remove an element, so that slows down those methods a little, but it doesn't change their order of growth, so it's probably worth it.
 
 The constructor sets `head` to `null`, which indicates an empty list, and sets `size` to 0.
 
-This class uses the type parameter `E` for the type of the elements.  This type parameter appears in the definition of `Node`, which is nested inside `MyLinkedList`:
+This class uses the type parameter `E` for the type of the elements.  If you are not familiar with type parameters, you might want to read [this tutorial](https://docs.oracle.com/javase/tutorial/java/generics/types.html).
+
+The type parameter also appears in the definition of `Node`, which is nested inside `MyLinkedList`:
 
 ```java
 	private class Node {
@@ -142,15 +149,14 @@ At this point you should have a general idea of how this implementation of linke
 But before you get started on the exercises, we'll look at one more method.  Here's my implementation of `add`:
 
 ```java
-	public boolean add(T e) {
+	public boolean add(E element) {
 		if (head == null) {
-			head = new Node(e);
+			head = new Node(element);
 		} else {
 			Node node = head;
-			for ( ; node.next != null; node = node.next) {
-				// find the last node
-			}
-			node.next = new Node(e);
+			// loop until the last node
+			for ( ; node.next != null; node = node.next) {}
+			node.next = new Node(element);
 		}
 		size++;
 		return true;
@@ -160,7 +166,7 @@ This example demonstrates two patterns you'll need for your solutions:
 
 1.  For many methods, we have to handle the first element of the list as a special case.  In this example, if we are adding the first element of a list, we have to modify `head`.  Otherwise, we traverse the list, find the end, and add the new node.
 
-2.  This method shows how to use a `for` loop to traverse the `Node`s in a list.  In your solutions, you will probably write several variations on this loop.  Notice that we have to declare `node` before the loop so we can access it after the loop.
+2.  This method shows how to use a `for` loop to traverse the nodes in a list.  In your solutions, you will probably write several variations on this loop.  Notice that we have to declare `node` before the loop so we can access it after the loop.
 
 
 ## Instructions
@@ -183,7 +189,7 @@ Now it's your turn:
 
 
 
-# A quick note on garbage collection
+# A note on garbage collection
 
 In `MyArrayList` from the previous lab, the array grows if necessary, but it never shrinks.  The array never gets garbage collected, and the elements don't get garbage collected until the list itself is destroyed.
 
@@ -202,4 +208,9 @@ When we set `head` to `null`, we remove a reference to the first `Node`.  If the
 
 So how should we classify `clear`?  The method itself contains two constant time operations, so it sure looks like it's constant time.  But when you invoke it, you make the garbage collector do work that's proportional to the number of elements.  So there's an argument that we should consider it linear!
 
-This is a subtle example of what is sometimes called a "performance bug"; that is, a program that is correct in the sense that it does the right thing, but it doesn't belong to the order of growth we expected.  In languages like Java that do a lot of work, like garbage collection, behind the scenes, this kind of error can be hard to find.
+This is a subtle example of what is sometimes called a "performance bug": a program that is correct in the sense that it does the right thing, but it doesn't belong to the order of growth we expected.  In languages like Java that do a lot of work, like garbage collection, behind the scenes, this kind of error can be hard to find.
+
+##Resources
+
+[Linked list Wikipedia page](https://en.wikipedia.org/wiki/Linked_list)
+[Generic types](https://docs.oracle.com/javase/tutorial/java/generics/types.html)
