@@ -149,6 +149,16 @@ public class MyLinkedListTest {
 	}
 
 	/**
+	 * Test method for {@link com.flatironschool.javacs.MyArrayList#indexOf(java.lang.Object)}.
+	 */
+	@Test
+	public void testIndexOfNull() {
+		assertThat(mll.indexOf(null), is(-1));
+		mll.add(null);
+		assertThat(mll.indexOf(null), is(3));		
+	}
+
+	/**
 	 * Test method for {@link com.flatironschool.javacs.MyArrayList#isEmpty()}.
 	 */
 	@Test

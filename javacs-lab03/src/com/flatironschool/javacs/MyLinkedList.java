@@ -75,9 +75,8 @@ public class MyLinkedList<E> implements List<E> {
 			head = new Node(element);
 		} else {
 			Node node = head;
-			for ( ; node.next != null; node = node.next) {
-				// find the last node
-			}
+			// loop until the last node
+			for ( ; node.next != null; node = node.next) {}
 			node.next = new Node(element);
 		}
 		size++;
