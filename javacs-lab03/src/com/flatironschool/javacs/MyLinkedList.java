@@ -85,14 +85,7 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int index, E element) {
-		// no need to check bounds; getNode does it.
-		if (index == 0) {
-			head = new Node(element, head);
-		} else {
-			Node node = getNode(index-1);
-			node.next = new Node(element, node.next);
-		}
-		size++;
+		// TODO: fill this in
 	}
 
 	@Override
@@ -153,13 +146,7 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		Node node = head;
-		for (int i=0; i<size; i++) {
-			if (equals(target, node.cargo)) {
-				return i;
-			}
-			node = node.next;
-		}
+		// TODO: fill this in
 		return -1;
 	}
 
@@ -214,12 +201,8 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean remove(Object obj) {
-		int index = indexOf(obj);
-		if (index == -1) {
-			return false;
-		}
-		remove(index);
-		return true;
+		// TODO: fill this in
+		return false;
 	}
 
 	@Override
