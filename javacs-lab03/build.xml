@@ -19,6 +19,7 @@
         <pathelement location="lib/jfreechart-1.0.19.jar"/>
         <pathelement location="lib/servlet.jar"/>
         <pathelement location="lib/ant-junit.jar"/>
+        <pathelement location="lib/commons-math3-3.6.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -56,11 +57,80 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
+    <target name="Profiler">
+        <java classname="com.flatironschool.javacs.Profiler" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target name="SelectionSort">
+        <java classname="com.flatironschool.javacs.SelectionSort" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target name="ListClientExampleTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.flatironschool.javacs.ListClientExampleTest" todir="${junit.output.dir}"/>
+            <classpath refid="JavaCS.classpath"/>
+        </junit>
+    </target>
+    <target name="PieChart">
+        <java classname="com.flatironschool.javacs.PieChart" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target name="MyLinkedListTest.testAddT">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
+            <classpath refid="JavaCS.classpath"/>
+        </junit>
+    </target>
+    <target name="XYLogAxesDemo">
+        <java classname="com.flatironschool.javacs.XYLogAxesDemo" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target name="LineChart_AWT">
+        <java classname="com.flatironschool.javacs.LineChart_AWT" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
     <target name="CrawlerTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <test name="com.flatironschool.javacs.CrawlerTest" todir="${junit.output.dir}"/>
+            <classpath refid="JavaCS.classpath"/>
+        </junit>
+    </target>
+    <target name="MyLinkedList">
+        <java classname="com.flatironschool.javacs.MyLinkedList" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target depends="build,MyLinkedListTest" name="test"/>
+    <target name="MyLinkedListTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
+            <classpath refid="JavaCS.classpath"/>
+        </junit>
+    </target>
+    <target name="ListClientExample">
+        <java classname="com.flatironschool.javacs.ListClientExample" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target name="MyArrayListTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.flatironschool.javacs.MyArrayListTest" todir="${junit.output.dir}"/>
             <classpath refid="JavaCS.classpath"/>
         </junit>
     </target>
@@ -74,21 +144,11 @@
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="Crawler">
-        <java classname="com.flatironschool.javacs.Crawler" failonerror="true" fork="yes">
-            <classpath refid="JavaCS.classpath"/>
-        </java>
-    </target>
-    <target name="ListClientExample">
-        <java classname="com.flatironschool.javacs.ListClientExample" failonerror="true" fork="yes">
-            <classpath refid="JavaCS.classpath"/>
-        </java>
-    </target>
-    <target name="ListClientExampleTest">
+    <target name="MyLinkedListTest.testAddIntT">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="com.flatironschool.javacs.ListClientExampleTest" todir="${junit.output.dir}"/>
+            <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
             <classpath refid="JavaCS.classpath"/>
         </junit>
     </target>
@@ -97,7 +157,12 @@
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="MyArrayListTest">
+    <target name="LinkedListExample">
+        <java classname="com.flatironschool.javacs.LinkedListExample" failonerror="true" fork="yes">
+            <classpath refid="JavaCS.classpath"/>
+        </java>
+    </target>
+    <target name="MyArrayListTest.testIndexOf">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
@@ -105,13 +170,8 @@
             <classpath refid="JavaCS.classpath"/>
         </junit>
     </target>
-    <target name="SelectionSort">
-        <java classname="com.flatironschool.javacs.SelectionSort" failonerror="true" fork="yes">
-            <classpath refid="JavaCS.classpath"/>
-        </java>
-    </target>
-    <target name="MyArrayListSoln">
-        <java classname="com.flatironschool.javacs.MyArrayListSoln" failonerror="true" fork="yes">
+    <target name="Crawler">
+        <java classname="com.flatironschool.javacs.Crawler" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
@@ -123,63 +183,35 @@
             <classpath refid="JavaCS.classpath"/>
         </junit>
     </target>
-    <target name="MyArrayListTest.testIndexOf">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="com.flatironschool.javacs.MyArrayListTest" todir="${junit.output.dir}"/>
-            <classpath refid="JavaCS.classpath"/>
-        </junit>
-    </target>
-    <target name="PieChart">
-        <java classname="com.flatironschool.javacs.PieChart" failonerror="true" fork="yes">
+    <target name="MyLinkedListSoln">
+        <java classname="com.flatironschool.javacs.MyLinkedListSoln" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="LineChart_AWT">
-        <java classname="com.flatironschool.javacs.LineChart_AWT" failonerror="true" fork="yes">
+    <target name="MyArrayListSoln">
+        <java classname="com.flatironschool.javacs.MyArrayListSoln" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="Profiler">
-        <java classname="com.flatironschool.javacs.Profiler" failonerror="true" fork="yes">
+    <target name="ProfileAdd">
+        <java classname="com.flatironschool.javacs.ProfileAdd" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="XYLogAxesDemo">
-        <java classname="com.flatironschool.javacs.XYLogAxesDemo" failonerror="true" fork="yes">
+    <target name="HelloJedis">
+        <java classname="com.flatironschool.javacs.HelloJedis" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="test">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <formatter type="plain" usefile="no"/>
-            <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
-            <classpath refid="JavaCS.classpath"/>
-        </junit>
-    </target>
-    <target name="MyLinkedList">
-        <java classname="com.flatironschool.javacs.MyLinkedList" failonerror="true" fork="yes">
+    <target name="WikiParser">
+        <java classname="com.flatironschool.javacs.WikiParser" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="MyLinkedListTest.testAddT">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
+    <target name="WikiPhilosophy">
+        <java classname="com.flatironschool.javacs.WikiPhilosophy" failonerror="true" fork="yes">
             <classpath refid="JavaCS.classpath"/>
-        </junit>
-    </target>
-    <target name="MyLinkedListTest.testAddIntT">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
-            <classpath refid="JavaCS.classpath"/>
-        </junit>
+        </java>
     </target>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
