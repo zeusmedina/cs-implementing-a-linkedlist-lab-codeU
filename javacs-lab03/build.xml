@@ -151,11 +151,12 @@
             <classpath refid="JavaCS.classpath"/>
         </java>
     </target>
-    <target name="test">
+    <target depends="build,MyLinkedListTest" name="test"/>
+    <target name="MyLinkedListTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <formatter type="plain" usefile="no"/>
+            <formatter type="plain" usefile="false"/>
             <test name="com.flatironschool.javacs.MyLinkedListTest" todir="${junit.output.dir}"/>
             <classpath refid="JavaCS.classpath"/>
         </junit>
